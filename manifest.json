@@ -5,10 +5,13 @@
   "description": "Compare the diffs of two GitHub pull requests.",
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "cookies"
   ],
   "host_permissions": [
-    "https://api.github.com/"
+    "https://api.github.com/",
+    "https://github.com/",
+    "https://patch-diff.githubusercontent.com/"
   ],
   "action": {
     "default_popup": "popup.html",
