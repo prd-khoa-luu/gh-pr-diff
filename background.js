@@ -21,6 +21,14 @@ function getPrDiff(url) {
       throw new Error(`GitHub request failed: ${response.statusText}`);
     }
     return response.text();
+  }).then(diff => {
+    return diff.split('\n').filter(line => {
+      return !line.startsWith('diff --git ') &&
+             !line.startsWith('index ') &&
+             !line.startsWith('--- ') &&
+             !line.startsWith('+++ ') &&
+             !line.startsWith('@@ ');
+    }).join('\n');
   });
 }
 
