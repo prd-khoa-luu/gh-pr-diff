@@ -9,28 +9,40 @@ function extractPrInfo(url) {
   }
 }
 
-function getPrDiff(owner, repo, prNumber) {
-  const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`;
+function constructDiffUrl(owner, repo, prNumber) {
+  return `https://github.com/${owner}/${repo}/pull/${prNumber}.diff`;
+}
+
+function getPrDiff(url) {
   return fetch(url, {
-    headers: { 'Accept': 'application/vnd.github.v3.diff' },
     credentials: 'include'
-  }).then(response => response.text());
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error(`GitHub request failed: ${response.statusText}`);
+    }
+    return response.text();
+  });
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'compare') {
     try {
-      const { owner: owner1, repo: repo1, prNumber: pr1 } = extractPrInfo(message.url1);
-      const { owner: owner2, repo: repo2, prNumber: pr2 } = extractPrInfo(message.url2);
+      const { url1, url2 } = message;
+
+      const { owner: owner1, repo: repo1, prNumber: pr1 } = extractPrInfo(url1);
+      const { owner: owner2, repo: repo2, prNumber: pr2 } = extractPrInfo(url2);
 
       if (owner1 !== owner2 || repo1 !== repo2) {
         sendResponse({ error: 'The two PRs must be from the same repository.' });
         return;
       }
 
+      const diffUrl1 = constructDiffUrl(owner1, repo1, pr1);
+      const diffUrl2 = constructDiffUrl(owner2, repo2, pr2);
+
       Promise.all([
-        getPrDiff(owner1, repo1, pr1),
-        getPrDiff(owner2, repo2, pr2)
+        getPrDiff(diffUrl1),
+        getPrDiff(diffUrl2)
       ]).then(([diff1, diff2]) => {
         sendResponse({ same: diff1 === diff2 });
       }).catch(error => {
