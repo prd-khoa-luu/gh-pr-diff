@@ -13,7 +13,7 @@ function constructDiffUrl(owner, repo, prNumber) {
   return `https://github.com/${owner}/${repo}/pull/${prNumber}.diff`;
 }
 
-function getPrDiff(url) {
+function getPrDiff(url, ignoreContext) {
   return fetch(url, {
     credentials: 'include'
   }).then(response => {
@@ -22,20 +22,21 @@ function getPrDiff(url) {
     }
     return response.text();
   }).then(diff => {
-    return diff.split('\n').filter(line => {
-      return !line.startsWith('diff --git ') &&
-             !line.startsWith('index ') &&
-             !line.startsWith('--- ') &&
-             !line.startsWith('+++ ') &&
-             !line.startsWith('@@ ');
-    }).join('\n');
+    return diff.split('\n').filter(line => (
+      !line.startsWith('diff --git ') &&
+      !line.startsWith('index ') &&
+      !line.startsWith('--- ') &&
+      !line.startsWith('+++ ') &&
+      !line.startsWith('@@ ') &&
+      (!ignoreContext || line.startsWith('+') || line.startsWith('-'))
+    )).join('\n');
   });
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'compare') {
     try {
-      const { url1, url2 } = message;
+      const { url1, url2, ignoreContext } = message;
 
       const { owner: owner1, repo: repo1, prNumber: pr1 } = extractPrInfo(url1);
       const { owner: owner2, repo: repo2, prNumber: pr2 } = extractPrInfo(url2);
@@ -49,8 +50,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const diffUrl2 = constructDiffUrl(owner2, repo2, pr2);
 
       Promise.all([
-        getPrDiff(diffUrl1),
-        getPrDiff(diffUrl2)
+        getPrDiff(diffUrl1, ignoreContext),
+        getPrDiff(diffUrl2, ignoreContext)
       ]).then(([diff1, diff2]) => {
         sendResponse({ same: diff1 === diff2 });
       }).catch(error => {

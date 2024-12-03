@@ -7,9 +7,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 document.getElementById('compare').addEventListener('click', () => {
   const url1 = document.getElementById('url1').value;
   const url2 = document.getElementById('url2').value;
+  const ignoreContext = document.getElementById('ignoreContext').checked;
 
   if (url1 && url2) {
-    chrome.runtime.sendMessage({ action: 'compare', url1, url2 }, (response) => {
+    chrome.runtime.sendMessage({ action: 'compare', url1, url2, ignoreContext }, (response) => {
+      console.log(url1, url2, ignoreContext);
       const resultDiv = document.getElementById('result');
       if (response.error) {
         resultDiv.textContent = `Error: ${response.error}`;
