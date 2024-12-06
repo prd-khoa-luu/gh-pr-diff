@@ -36,9 +36,10 @@ Screenshots
 
 ## TODOs
 * Options to run the comparison on specific files or commits
+  * This probably requires a diff parsing library such as [diff2html](https://github.com/rtfpessoa/diff2html?tab=readme-ov-file#diff2html-api) and [parse-diff](https://github.com/sergeyt/parse-diff)
 * Keyboard shortcut activation
 * [v2] Showing diff details
 
 ## Acknowledgements
 * This tool is built mainly by GPT-4o and Claude 3.5 Sonnet.
-* The favicon used in this project are provided by [Lucide](https://lucide.dev/).
+* The extension's favicon is provided by [Lucide](https://lucide.dev/).
