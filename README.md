@@ -3,7 +3,11 @@ This is a Chrome extension for comparing 2 Github PRs.
 A Firefox extension may come later :)
 
 ## Why?
-This extension can help you compare 2 PRs, especially when one is a cherry-pick version of the other. No more silly cherry-pick/merge/rebase mistakes!
+This extension can help you compare the diffs of 2 PRs, especially when one is a cherry-pick version of the other. No more silly cherry-pick/merge/rebase mistakes!
+
+## How it works
+The tool aims to provide basic `git range-diff` functionality for Github PRs.
+Some good explanations of `git range-diff` can be found in this question [Can somebody explain the usage of git range-diff?](https://stackoverflow.com/a/61219652/14725572)
 
 ## Installation
 This extension is not available on the Chrome Web Store, so you need to install it manually.
@@ -13,10 +17,6 @@ This extension is not available on the Chrome Web Store, so you need to install 
 3. Enable "Developer mode"
 4. Click "Load unpacked" at the top left corner
 5. Find and select the downloaded extension folder
-
-## How it works
-The tool aims to provide basic `git range-diff` functionality for Github PRs.
-Some good explanations of `git range-diff` can be found in this question [Can somebody explain the usage of git range-diff?](https://stackoverflow.com/a/61219652/14725572)
 
 ## Usage
 Follow these steps
