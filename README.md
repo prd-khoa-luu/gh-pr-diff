@@ -6,11 +6,11 @@ A Firefox extension may come later :)
 This extension can help you compare the diffs of 2 PRs, especially when one is a cherry-pick version of the other. No more silly cherry-pick/merge/rebase mistakes!
 
 ## How it works
-The tool aims to provide basic `git range-diff` functionality for Github PRs.
-Some good explanations of `git range-diff` can be found in this question [Can somebody explain the usage of git range-diff?](https://stackoverflow.com/a/61219652/14725572)
+The tool aims to provide basic [git range-diff](https://git-scm.com/docs/git-range-diff) functionality for Github PRs.
+Some good explanations of the Git command can be found in this question [Can somebody explain the usage of git range-diff?](https://stackoverflow.com/a/61219652/14725572)
 
 ## Installation
-This extension is not available on the Chrome Web Store, so you need to install it manually.
+This extension is not available on the Chrome Web Store (yet!), so you need to install it manually.
 
 1. Download the latest release from this repo
 2. Go to `chrome://extensions/`
@@ -29,7 +29,12 @@ Follow these steps
 6. Uncheck the "Ignore diff code context" checkbox if you want to take the code around the diffs into account when doing the comparison
 7. Click "Compare"
 
-Screenshots
+**Note:**
+* The URLs must be in the format of `https://github.com/<owner>/<repo>/pull/<pr-number>/<optional-extra-path>`. For example,
+  * PR 1: `https://github.com/owner/repo/pull/1`
+  * PR 2: `https://github.com/owner/repo/pull/2/files`
+
+**Screenshots**
 * ![Usage](docs/image-1.png)
 * ![Extension Popup](docs/image.png)
 
