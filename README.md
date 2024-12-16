@@ -34,9 +34,8 @@ Follow these steps
   * PR 2: `https://github.com/owner/repo/pull/2/files`
 
 **Screenshots**
-* ![Usage](docs/image-1.png)
-* ![Extension Popup](docs/image.png)
-
+* ![image](https://github.com/user-attachments/assets/4038abd9-af48-4125-8dfb-dbc35f861f66)
+* ![image](https://github.com/user-attachments/assets/d5e90b8a-f58d-460f-b944-5ecd21e48637)
 
 ## TODOs
 * Options to run the comparison on specific files or commits
