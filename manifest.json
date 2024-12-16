@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "GitHub PR Diff Comparator",
-  "version": "1.0",
+  "name": "Github Pull Request Diff Comparison Tool",
+  "version": "1.0.0",
   "description": "Compare the diffs of two GitHub pull requests.",
   "permissions": [
     "activeTab",
@@ -9,7 +9,6 @@
     "cookies"
   ],
   "host_permissions": [
-    "https://api.github.com/",
     "https://github.com/",
     "https://patch-diff.githubusercontent.com/"
   ],
